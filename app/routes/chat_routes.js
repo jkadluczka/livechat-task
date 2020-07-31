@@ -3,11 +3,16 @@ const userService = require('./../services/user-service');
 
 module.exports = function (app) {
   app.get('/chats', async (req, res) => {
-    res.send('hello');
     const messageData = await messageService();
-    console.log(messageData);
+    const groupedMessages = messageData.reduce((acc, message) => {
+      if (!acc[message.chat_uuid]) {
+        acc[message.chat_uuid] = [];
+      }
+      acc[message.chat_uuid].push(message);
 
-    const userData = await userService('ba405586-3a7f-484b-b5c0-5d1cf5cd9c0e');
-    console.log(userData);
+      return acc;
+    }, {});
+
+    res.send(groupedMessages);
   });
 };
