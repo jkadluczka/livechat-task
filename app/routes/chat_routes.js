@@ -1,6 +1,7 @@
 const messageService = require('./../services/messages-service');
 const getUser = require('./../services/user-service');
 const Promise = require('bluebird');
+const removeDoubles = require('./../utils/remove-doubles-util');
 
 module.exports = function (app) {
   app.get('/chats', async (req, res) => {
@@ -24,22 +25,18 @@ module.exports = function (app) {
         return await getUser(message.author_uuid);
       });
 
-      const fuckYou = await Promise.map(promises, (user) => {
+      const userList = await Promise.map(promises, (user) => {
         return user.last_name
           ? `${user.first_name} ${user.last_name}`
           : user.first_name;
       });
 
-      console.log(fuckYou);
-
-      chat.users = fuckYou;
+      chat.users = removeDoubles(userList);
       return chat;
     });
 
     const responseWait = await Promise.all(response);
 
-    console.log('responseWait', responseWait);
-    console.log('End');
     res.send(responseWait);
   });
 };
