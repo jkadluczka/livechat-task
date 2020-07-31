@@ -5,38 +5,51 @@ const removeDoubles = require('./../utils/remove-doubles-util');
 
 module.exports = function (app) {
   app.get('/chats', async (req, res) => {
+    //Getting all messages from '/messages'
     const messageData = await messageService();
 
+    //Grouping messages. Format changed to Object for easier handling.
     const groupedMessages = messageData.reduce((acc, message) => {
+      //Creating new field if it does not exist
       if (!acc[message.chat_uuid]) {
         acc[message.chat_uuid] = [];
       }
+
       acc[message.chat_uuid].push(message);
 
       return acc;
     }, {});
 
-    const response = await Object.keys(groupedMessages).map(async (key) => {
-      const chat = { chat_uuid: key, message_cound: 0, users: [] };
-      console.log('1');
+    //Constructing responce with mapping of keys of object.
+    const chatsPromises = await Object.keys(groupedMessages).map(
+      async (key) => {
+        //Default starting chat object wit 0 messages.
+        const chat = { chat_uuid: key, message_count: 0, users: [] };
 
-      const promises = groupedMessages[key].map(async (message) => {
-        chat.message_cound++;
-        return await getUser(message.author_uuid);
-      });
+        //Getting array of promises using .map(). Also incrementing message count.
+        const userListPromises = groupedMessages[key].map(async (message) => {
+          chat.message_count++;
+          return await getUser(message.author_uuid);
+        });
 
-      const userList = await Promise.map(promises, (user) => {
-        return user.last_name
-          ? `${user.first_name} ${user.last_name}`
-          : user.first_name;
-      });
+        //Resolving of promisses with Promise.map so user object can be transformed in the same spot.
+        const userList = await Promise.map(userListPromises, (user) => {
+          return user.last_name
+            ? `${user.first_name} ${user.last_name}`
+            : user.first_name;
+        });
 
-      chat.users = removeDoubles(userList);
-      return chat;
-    });
+        //Assigning array of unique users to chat's user list
+        chat.users = removeDoubles(userList);
 
-    const responseWait = await Promise.all(response);
+        return chat;
+      }
+    );
 
-    res.send(responseWait);
+    //Resolving chats promisses with Promise.all (no need for mapping)
+    const chats = await Promise.all(chatsPromises);
+
+    //Sending ready response
+    res.send(chats);
   });
 };
