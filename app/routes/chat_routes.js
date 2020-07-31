@@ -24,11 +24,11 @@ module.exports = function (app) {
     const chatsPromises = await Object.keys(groupedMessages).map(
       async (key) => {
         //Default starting chat object wit 0 messages.
-        const chat = { chat_uuid: key, message_count: 0, users: [] };
+        const chat = { chat_uuid: key, messages_count: 0, users: [] };
 
         //Getting array of promises using .map(). Also incrementing message count.
         const userListPromises = groupedMessages[key].map(async (message) => {
-          chat.message_count++;
+          chat.messages_count++;
           return await getUser(message.author_uuid);
         });
 
