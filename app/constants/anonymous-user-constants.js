@@ -1,6 +1,6 @@
 const anonymousUser = {
   first_name: 'Anonymous',
-  lastName: '',
+  last_name: '',
 };
 
 module.exports = anonymousUser;
