@@ -1,5 +1,5 @@
 const chatRoutes = require('./chat_routes');
 
-module.exports = function (app, database) {
-  chatRoutes(app, database);
+module.exports = function (app) {
+  chatRoutes(app);
 };
