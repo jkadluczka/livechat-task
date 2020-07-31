@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "jest",
+    "start": "nodemon server.js"
   },
   "author": "Jacek Kadluczka",
   "license": "ISC",
@@ -13,6 +13,7 @@
     "axios": "^0.19.2",
     "bluebird": "^3.7.2",
     "express": "^4.17.1",
+    "jest": "^26.2.2",
     "nodemon": "^2.0.4"
   },
   "devDependencies": {
