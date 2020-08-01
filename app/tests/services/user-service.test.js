@@ -22,11 +22,13 @@ describe('messageService test', () => {
     const testCase = await userService('non_existent_id');
 
     expect(typeof testCase).toEqual('object');
-
+ 
     expect(testCase).toHaveProperty('first_name');
     expect(testCase).toHaveProperty('last_name');
 
     expect(testCase.first_name).toEqual('Anonymous');
     expect(testCase.last_name).toEqual('');
   });
+
+  
 });
