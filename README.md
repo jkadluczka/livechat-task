@@ -88,7 +88,7 @@ users/?user_uuid=\${user_uuid}:
 
 ## Implementation
 
-Beside `server.js` , which contains basic logic for starting server on port 8000, rest of the code is contained in folder app. It has been divided to 6 sub-folders :
+Beside `server.js` , which contains basic logic for starting server on port 8000, and `app.js`, which contains new express app with routes, rest of the code is contained in folder app. It has been divided to 6 sub-folders :
 
 **constants** - It contains all constants used in app, such as anonymous user object and constants used in tests.
 
