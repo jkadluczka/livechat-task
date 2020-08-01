@@ -1,22 +1,23 @@
 const axios = require('axios');
 
 module.exports = async () => {
+  let response;
   let errorResponse;
   //Getting all messages from /messages
-  const response = await axios
-    .get('http://localhost:3000/messages')
-    .catch(() => {
-      errorResponse = {
-        error: true,
-        message:
-          "Can't access '/messages'. Check if your json-server is running properly.",
-      };
-    });
+  try {
+    response = await axios.get('http://localhost:3000/messages');
+  } catch (error) {
+    errorResponse = {
+      error: true,
+      message:
+        "Can't access '/messages'. Check if your json-server is running properly.",
+    };
+  }
 
-    if(errorResponse){
-      console.error(errorResponse.message);
-      return [];
-    }
+  if (errorResponse) {
+    console.error(errorResponse.message);
+    return [];
+  }
 
-  return response.data;
+  return response ? response.data : [];
 };

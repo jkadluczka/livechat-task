@@ -1,6 +1,4 @@
-const anonymousUser = {
+module.exports = {
   first_name: 'Anonymous',
   last_name: '',
 };
-
-module.exports = anonymousUser;

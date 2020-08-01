@@ -109,7 +109,7 @@ Beside ``server.js`` , which contains basic logic for starting server on port 80
 
 There are few things that are worth mentioning in my opinion:
 
-- I commented most of the code to make it more transparent to the reader. 
+- I commented most of the code to make it more transparent to the reader. However, I did not commented tests since they're pretty self-explanatory. 
 - I had a problem with supertest that I could not resolve. My server does not close after test were performed. I tried to solve it but I couldn't. I would like to be open about it, so I've put additional flag to ``npm test`` script that will point out the problem.
 - In task description one of fields returned is called ``message_cound`` . I assumed this was mistake so I renamed it as ``message_count``
 - In task description point about changing ``user_uuid`` to concatincated first name and last name was not on the same page with exaple response provided. I started implementation in the evening (no way of asking) so i did it both ways. It is commented in code in ``chat-controller.js`` and `remove-doubles-util.js`. 
