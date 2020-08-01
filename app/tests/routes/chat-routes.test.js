@@ -9,7 +9,7 @@ beforeAll(async (done) => {
   });
 });
 
-afterEach(async () => {
+afterAll(async () => {
   await server.close();
 });
 

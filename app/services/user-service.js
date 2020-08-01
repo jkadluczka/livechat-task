@@ -1,5 +1,9 @@
 const axios = require('axios');
 const anonymousUser = require('../constants/anonymous-user-constants');
+const {
+  MULTIPLE_USERS,
+  NO_ACCESS_USERS,
+} = require('../constants/error-messages');
 
 module.exports = async (userUuid) => {
   let response;
@@ -14,8 +18,7 @@ module.exports = async (userUuid) => {
     errorResponse = {
       error: true,
       status: error.response.status,
-      message:
-        "Can't access '/users'. Check if your json-server is running properly.",
+      message: NO_ACCESS_USERS,
     };
   }
 
@@ -25,8 +28,7 @@ module.exports = async (userUuid) => {
   }
 
   //Handling multiple users with same uuid
-  if (response.data && response.data.length > 1)
-    console.log('Multiple users with the same uuid. Check the database!');
+  if (response.data && response.data.length > 1) console.error(MULTIPLE_USERS);
 
   //handling empty array response and 404
   if (response.data && response.data.length === 0) return anonymousUser;

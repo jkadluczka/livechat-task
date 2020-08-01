@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { NO_ACCESS_MESSAGES } = require('../constants/error-messages');
 
 module.exports = async () => {
   let response;
@@ -9,8 +10,7 @@ module.exports = async () => {
   } catch (error) {
     errorResponse = {
       error: true,
-      message:
-        "Can't access '/messages'. Check if your json-server is running properly.",
+      message: NO_ACCESS_MESSAGES,
     };
   }
 
