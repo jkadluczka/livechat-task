@@ -13,10 +13,82 @@
 - run the server - ``nodemon server.js``
   
 
+ ## General description
+App is using mocked server to perform merge of two calls into one, containing transformed data.  
+
+**Data received from calls :**
+
+/message:
+```
+[  
+{  
+"message_uuid": "3b777c22-5f7d-4552-8294-7363c68f6682",  
+"chat_uuid": "802e9b88-60f2-43a1-b8b9-bad33afb0f7b",  
+"author_uuid": "ba405586-3a7f-484b-b5c0-5d1cf5cd9c0e",  
+"text": "Hi!"  
+},  
+{  
+"message_uuid": "ed557979-5007-4d2c-a3ab-1d58b5603b83",  
+"chat_uuid": "c4ad5026-b85c-45fa-8670-82af54623aab",  
+"author_uuid": "ce0d0300-716b-4ba8-8f2f-d01d1c2576a4",  
+"text": "See you later!"  
+},  
+{  
+"message_uuid": "c358e40f-ab91-4fcb-a779-5096416cc811",  
+"chat_uuid": "802e9b88-60f2-43a1-b8b9-bad33afb0f7b",  
+"author_uuid": "ba405586-3a7f-484b-b5c0-5d1cf5cd9c0e",  
+"text": "How's going?"  
+},  
+{  
+"message_uuid": "2203b590-705e-46c5-9b7d-698c67ecfaa4",  
+"chat_uuid": "802e9b88-60f2-43a1-b8b9-bad33afb0f7b",  
+"author_uuid": "3017eb96-a211-417b-ab96-6d7286cc0d5c",  
+"text": "Hey, very well!"  
+}  
+]
+```
+
+users/?user_uuid=${user_uuid}:
+```
+{  
+"user_uuid": "",  
+"first_name": "John",  
+"last_name": "Doe"  
+}
+```
+
+**Data returned from calls**
+/chats:
+```
+[  
+{  
+"chat_uuid": "66019eab-d2cb-4bb6-a873-aa8acf2d116d",  
+"messages_cound": 6,  
+"users": [  
+"Anonymous",  
+"John Doe",  
+"Will Smith"  
+]  
+}  
+]
+```
+
+**Task basic principles:**
+- group all messages based on the `chat_uuid`  
+- count all messages for given `chat_uuid` and return as `messages_count`  
+- all authors of messages for given `chat_uuid` should be collected and returned as `users` array  
+- authors uuids should be replaced with concatenation of first and last name  
+- in case when given author doesn't exist (API returned 404), then use name `Anonymous`
+
+**Solution contains:**
+-  simple service in nodejs that will meet enlisted goals  
+-  tests for created service
+
+
 ## Implementation
 
   
-Beside ``server.js`` rest of the code is contained in folder app. It has been divided to 6 sub-folders :
+Beside ``server.js`` , which contains basic logic for starting server on port 8000, rest of the code is contained in folder app. It has been divided to 6 sub-folders :
 
 **constants** - It contains all constants used in app, such as anonymous user object and constants used in tests.
 
