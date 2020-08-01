@@ -17,7 +17,7 @@ module.exports = async (userUuid) => {
     });
 
   if (errorResponse) {
-    console.log(errorResponse.message);
+    console.error('ERROR', errorResponse.message);
     return errorResponse.status === 404 ? anonymousUser : {};
   }
 

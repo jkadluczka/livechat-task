@@ -13,5 +13,10 @@ module.exports = async () => {
       };
     });
 
-  return errorResponse ? errorResponse : response.data;
+    if(errorResponse){
+      console.error(errorResponse.message);
+      return [];
+    }
+
+  return response.data;
 };
