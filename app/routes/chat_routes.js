@@ -6,8 +6,8 @@ module.exports = function (app) {
     //Getting all messages from '/messages'
     const messageData = await messageService();
 
-    if (!messageData || messageData.length === 0) {
-      res.send('No messages found!');
+    if (messageData.error) {
+      res.send(messageData.message);
     } else {
       //Grouping messages. Format changed to Object for easier handling.
       const groupedMessages = chatController.groupMessages(messageData);
