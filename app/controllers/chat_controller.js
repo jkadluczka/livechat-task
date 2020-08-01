@@ -29,6 +29,14 @@ exports.getChatPromisses = async (groupedMessages) => {
 
     //Resolving of promisses with Promise.map so user object can be transformed in the same spot.
     const userList = await Promise.map(userListPromises, (user) => {
+
+      // As stated in README.md:
+
+      // return{
+      //   first_name: user.first_name,
+      //   last_name: user.last_name,
+      //   user_uuid: concatinateName(user)
+      // }
       return concatinateName(user);
     });
 
