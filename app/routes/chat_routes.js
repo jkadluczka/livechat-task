@@ -9,7 +9,7 @@ module.exports = function (app) {
     //Grouping messages. Format changed to Object for easier handling.
     const groupedMessages = chatController.groupMessages(messageData);
 
-    //Constructing responce with mapping of keys of object.
+    //Constructing response with mapping of keys of object.
     const chatsPromises = await chatController.getChatPromisses(
       groupedMessages
     );

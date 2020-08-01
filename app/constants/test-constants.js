@@ -1,3 +1,5 @@
+//Constants used in tests
+
 module.exports = {
   REMOVE_DOUBLES: {
     ARRAY_NO_DOUBLES: [1, 2, 3, 4, 5],
