@@ -23,8 +23,6 @@ describe('messageService test', () => {
 
     const testCase = await messagesService();
 
-    console.log(testCase);
-
     expect(testCase.length).toBeGreaterThan(0);
     expect(testCase[0]).toHaveProperty('message_uuid');
     expect(testCase[0]).toHaveProperty('chat_uuid');

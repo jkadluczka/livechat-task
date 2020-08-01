@@ -21,7 +21,7 @@ module.exports = async (userUuid) => {
 
   if (errorResponse) {
     console.error('ERROR', errorResponse.message);
-    return errorResponse.status === 404 ? anonymousUser : {};
+    return errorResponse.status === 404 && anonymousUser;
   }
 
   //Handling multiple users with same uuid
@@ -32,5 +32,5 @@ module.exports = async (userUuid) => {
   if (response.data && response.data.length === 0) return anonymousUser;
 
   //Returning user data
-  return response.data ? response.data[0] : {};
+  return response.data[0];
 };

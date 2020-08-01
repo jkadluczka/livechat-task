@@ -1,9 +1,21 @@
 const request = require('supertest');
 const app = require('./../../../server');
+let server;
+
+beforeAll(async (done) => {
+  server = app.listen(4000, () => {
+    global.agent = request.agent(server);
+    done();
+  });
+});
+
+afterEach(async () => {
+  await server.close();
+});
 
 describe('/chats route test', () => {
   it('Should execute /chats route properly', async () => {
-    const response = await request(app).get('/chats');
+    const response = await global.agent.get('/chats');
 
     expect(response.statusCode).toEqual(200);
 
