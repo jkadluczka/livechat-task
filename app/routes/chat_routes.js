@@ -2,6 +2,7 @@ const messageService = require('./../services/messages-service');
 const getUser = require('./../services/user-service');
 const Promise = require('bluebird');
 const removeDoubles = require('./../utils/remove-doubles-util');
+const concatinateName = require('./../utils/concatinate-name-util');
 
 module.exports = function (app) {
   app.get('/chats', async (req, res) => {
@@ -34,9 +35,7 @@ module.exports = function (app) {
 
         //Resolving of promisses with Promise.map so user object can be transformed in the same spot.
         const userList = await Promise.map(userListPromises, (user) => {
-          return user.last_name
-            ? `${user.first_name} ${user.last_name}`
-            : user.first_name;
+          return concatinateName(user);
         });
 
         //Assigning array of unique users to chat's user list
