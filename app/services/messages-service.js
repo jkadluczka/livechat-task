@@ -1,7 +1,13 @@
 const axios = require('axios');
 
-module.exports = () => {
-  return axios.get('http://localhost:3000/messages').then((response) => {
-    return response.data;
-  });
+module.exports = async () => {
+
+  //Getting all messages from /messages
+  const response = await axios
+    .get('http://localhost:3000/messages')
+    .catch((error) => {
+      throw error;
+    });
+
+  return response.data;
 };
