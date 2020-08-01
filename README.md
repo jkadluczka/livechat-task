@@ -6,7 +6,7 @@
 - install json-server globally - `npm install -g json-server`
 - run the mock server by navigating to `mocks` folder and running
   `json-server --watch mock-server.json` command in terminal
-- run the server - `nodemon server.js`
+- run the server - `nodemon server.js` or `npm start`
 
 ## General description
 
